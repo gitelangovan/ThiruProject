@@ -1,0 +1,73 @@
+<div class="container containerCenter">
+    <div class="card my-auto shadow">
+        <div class="card-body">
+            <div class="text-center">
+                <h2>Create New User</h2>
+            </div>
+            <p style="color: lightslategray; text-align: center;font-size: 13px;">Please enter your user details
+                below...</p>
+            <hr>
+            <form>
+                <ng-container class="row">
+                    <ng-container>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" placeholder="User First Name">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="secondName">Second Name</label>
+                                    <input type="text" class="form-control" placeholder="User Second Name">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="contactNumber">Contact Number</label>
+                                    <input type="text" class="form-control" placeholder="User Contact Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="email">Email-ID</label>
+                                    <input type="text" class="form-control" placeholder="User Email">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" class="form-control" placeholder="User Address">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="text" class="form-control" placeholder="New Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="text" class="form-control" placeholder="Confirm Password">
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-container>
+                </ng-container>
+                <!-- buttons -->
+                <div class="text-center">
+                    <button class="btn btn-primary mr-5">Register</button>
+                    <button class="btn btn-secondary" routerLink="/loginPage">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
