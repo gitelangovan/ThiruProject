@@ -25,7 +25,7 @@ export class HomePageComponent {
         this.router.navigate(['/historyPage']);
         break;
       case 'paymentNav':
-        this.router.navigate(['/paymentPage']);
+        this.router.navigate(['/invoicePage']);
         break;
       case 'logoutNav':
         this.router.navigate(['/loginPage']);

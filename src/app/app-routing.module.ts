@@ -6,6 +6,7 @@ import { HistoryPageComponent } from './history-page/history-page.component';
 import { PaymentPageComponent } from './payment-page/payment-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { InvoicePageComponent } from './invoice-page/invoice-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/loginPage', pathMatch: 'full'},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'historyPage', component: HistoryPageComponent},
   {path: 'paymentPage', component: PaymentPageComponent},
   {path: 'loginPage', component: LoginPageComponent},
+  {path: 'invoicePage', component: InvoicePageComponent},
   {path: '**', component: NotFoundPageComponent}
 ];
 

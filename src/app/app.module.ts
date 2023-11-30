@@ -12,6 +12,7 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InvoicePageComponent } from './invoice-page/invoice-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PaymentPageComponent,
     HistoryPageComponent,
     LoginPageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    InvoicePageComponent
   ],
   imports: [
     BrowserModule,
