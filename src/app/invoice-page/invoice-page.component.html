@@ -1,205 +1,236 @@
 <div class="container mt-lg-5">
     <div class="d-flex flex-md-column mb-3">
-        <div class="card">
+        <div class="card" style="margin-bottom: 3rem;">
             <div class="card-header text-center">
                 <h1>OXOUR CHEMICALS</h1>
             </div>
             <div class="card-body">
-                <form>
+                <form [formGroup]="invoiceForm" (ngSubmit)="submitForm()">
                     <!-- Customer Details -->
-                    <div class="form-group">
-                        <h4>CUSTOMER DETAILS:</h4>
-                        <div class="row" style="margin-top: 1rem;">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <label for="cusName">Countomer Name:</label>
-                                        <input type="text" placeholder="Customer Name" class="form-control"
-                                            formControlName="cusName" />
+                    <div formArrayName="invoiceArray" *ngFor="let a of parentControl(); let i = index">
+                        <div [formGroupName]="i">
+
+                            <div class="form-group">
+                                <h4>CUSTOMER DETAILS:</h4>
+                                <div class="row" style="margin-top: 1rem;">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label for="cusName">Countomer Name:</label>
+                                                <input type="text" placeholder="Customer Name" class="form-control"
+                                                    formControlName="cusName" />
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <label for="phoneNo">Phone Number:</label>
+                                                <input type="text" placeholder="Phone Number" class="form-control"
+                                                    formControlName="phoneNo" />
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <label for="gstNo">GSTIN Number:</label>
+                                                <input type="text" placeholder="GSTIN Number" class="form-control"
+                                                    formControlName="gstNo" />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <label for="codeNo">Code Number:</label>
-                                        <input type="text" placeholder="Code" class="form-control"
-                                            formControlName="codeNo" />
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <label for="gstNo">GSTIN Number:</label>
-                                        <input type="text" placeholder="GSTIN Number" class="form-control"
-                                            formControlName="gstNo" />
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label for="address">Address:</label>
+                                                <textarea cols="30" rows="6" type="text" placeholder="Customer Address"
+                                                    class="form-control" formControlName="address"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <hr style="border-top: 1px dashed;">
+                            <!-- Tax Invoice -->
+                            <div class="form-group">
+                                <h4>TAX INVOICE:</h4>
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <label for="address">Address:</label>
-                                        <textarea cols="30" rows="6" type="text" placeholder="Customer Address"
-                                            class="form-control" formControlName="address"></textarea>
+
+                                    <div class="col-sm-4">
+                                        <label for="billNo">Bill Number:</label>
+                                        <input type="number" placeholder="Bill Number" class="form-control"
+                                            formControlName="billNo" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="billDate">Bill Date:</label>
+                                        <input type="date" placeholder="Bill Date" class="form-control"
+                                            formControlName="billDate" />
+                                    </div>
+
+                                    <!-- Need to check later -->
+                                    <div class="col-md-4">
+                                        <p for="payment">Payment Method:</p>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" class="custom-control-input" id="cash">
+                                            <label class="custom-control-label" for="cash">Cash</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" class="custom-control-input" id="credit">
+                                            <label class="custom-control-label" for="credit">Credit</label>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <hr style="border-top: 1px dashed;">
+
+                            <!-- Chemical Details - Formarray details will come here -->
+                            <h4>CHEMICAL DETAILS:</h4>
+                            <div class="form-group">
+
+                                <div class="card">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">SI.NO:</th>
+                                                <th scope="col">PARTICULARS:</th>
+                                                <th scope="col">HSN CODE:</th>
+                                                <th scope="col">QTY:</th>
+                                                <th scope="col">RATE/UNIT:</th>
+                                                <th scope="col">AMOUNT:</th>
+                                                <th scope="col">Action:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody formArrayName="chemicalArray"
+                                            *ngFor="let b of chemicalDetailsArr(a); let j = index">
+                                            <!-- Example rows & columns -->
+                                            <tr [formGroupName]="j">
+                                                <td data-label="siNo">{{j+1}}
+                                                </td>
+                                                <td data-label="chemical">
+                                                    <input type="text" formControlName="chemicalValue"
+                                                        class="form-control">
+                                                </td>
+                                                <td data-label="hsnCode">
+                                                    <input type="text" formControlName="hsnValue" class="form-control">
+                                                </td>
+                                                <td data-label="qty">
+                                                    <input type="number" formControlName="qtyValue"
+                                                        class="form-control">
+                                                </td>
+                                                <td data-label="rate">
+                                                    <input type="number" formControlName="rateValue"
+                                                        class="form-control">
+                                                </td>
+                                                <td data-label="amount">
+                                                    <input type="number" formControlName="amountValue"
+                                                        class="form-control">
+                                                </td>
+                                                <td>
+                                                    <!-- <mat-icon>add_circle</mat-icon> -->
+                                                    <button (click)="addChemic(a)"><i class="fa-regular fa-square-plus"></i></button>
+                                                    <button (click)="removeChemic(a,j)"><i class="fa-regular fa-square-delete"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <hr style="border-top: 1px dashed;">
+
+                                <h4>Billing Details:</h4>
+                                <div class="card">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">CGST:</th>
+                                                <th scope="col">SGST:</th>
+                                                <th scope="col">IGST:</th>
+                                                <th scope="col">Round Off:</th>
+                                                <th scope="col" style="font-weight: bold;">GRAND TOTAL:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-label="cgst">
+                                                    <input type="number" class="form-control"
+                                                        formControlName="cgstValue">
+                                                </td>
+                                                <td data-label="sgst">
+                                                    <input type="number" class="form-control"
+                                                        formControlName="sgstValue">
+                                                </td>
+                                                <td data-label="igst">
+                                                    <input type="number" class="form-control"
+                                                        formControlName="igstValue">
+                                                </td>
+                                                <td data-label="rdOff">
+                                                    <input type="number" class="form-control"
+                                                        formControlName="rdfValue">
+                                                </td>
+                                                <td data-label="total">
+                                                    <input type="number" class="form-control" readonly
+                                                        formControlName="totalValue">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- <hr style="border-top: 1px dashed;"> -->
+
+                                <!-- <h4>BANK DETAILS:</h4>
+                                <div class="card">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Bank Name:</th>
+                                                <th scope="col">Account Number:</th>
+                                                <th scope="col">Account Type:</th>
+                                                <th scope="col">Branch:</th>
+                                                <th scope="col">IFS Code:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-label="bankName">
+                                                    <input type="text" class="form-control">
+                                                </td>
+                                                <td data-label="accNumber">
+                                                    <input type="text" class="form-control">
+                                                </td>
+                                                <td data-label="accType">
+                                                    <input type="text" class="form-control">
+                                                </td>
+                                                <td data-label="branch">
+                                                    <input type="text" class="form-control">
+                                                </td>
+                                                <td data-label="ifsCode">
+                                                    <input type="text" class="form-control">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div> -->
+
+                                <!-- <hr style="border-top: 1px dashed;"> -->
+
+                                <!-- Denomination Details -->
+                                <!-- <div class="card">
+                                    <table class="table table-bordered">
+                                      
+                                        <tbody>
+                                            <tr>
+                                                <td data-label="rupess">Rupess
+                                                    <textarea name="" id="" cols="10" rows="3" class="form-control"></textarea>
+                                                </td>
+                                                <td>
+                                                    Certified that this invoice shows the actual price of goods described and all particulars are true and correct.
+                                                    <input type="file" class="form-control">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div> -->
+
                             </div>
                         </div>
                     </div>
-                    <hr style="border-top: 1px dashed;">
-                    <!-- Tax Invoice -->
-                    <div class="form-group">
-                        <h4>TAX INVOICE:</h4>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p for="payment">Payment Method:</p>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="cash">
-                                    <label class="custom-control-label" for="cash">Cash</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="credit">
-                                    <label class="custom-control-label" for="credit">Credit</label>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <label for="billNo">Bill Number:</label>
-                                <input type="number" placeholder="Bill Number" class="form-control"
-                                    formControlName="billNo" />
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="billDate">Bill Date:</label>
-                                <input type="date" placeholder="Bill Date" class="form-control"
-                                    formControlName="billDate" />
-                            </div>
-                        </div>
-                    </div>
-                    <hr style="border-top: 1px dashed;">
-
-                    <!-- Chemical Details - Formarray details will come here -->
-                    <h4>CHEMICAL DETAILS:</h4>
-                    <div class="form-group">
-                        <div class="card">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">SI.NO:</th>
-                                        <th scope="col">PARTICULARS:</th>
-                                        <th scope="col">HSN CODE:</th>
-                                        <th scope="col">QTY:</th>
-                                        <th scope="col">RATE/UNIT:</th>
-                                        <th scope="col">AMOUNT:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Example rows & columns -->
-                                    <tr>
-                                        <td data-label="siNo">1</td>
-                                        <td data-label="chemical">OX-HARDNER-B 639</td>
-                                        <td data-label="hsnCode">090190</td>
-                                        <td data-label="qty">3</td>
-                                        <td data-label="rate">750</td>
-                                        <td data-label="amiunt">2250</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="siNo">1</td>
-                                        <td data-label="chemical">OX-HARDNER-B 639</td>
-                                        <td data-label="hsnCode">090190</td>
-                                        <td data-label="qty">3</td>
-                                        <td data-label="rate">750</td>
-                                        <td data-label="amiunt">2250</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <hr style="border-top: 1px dashed;">
-
-                        <h4>Billing Details:</h4>
-                        <div class="card">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">CGST:</th>
-                                        <th scope="col">SGST:</th>
-                                        <th scope="col">IGST:</th>
-                                        <th scope="col">Round Off:</th>
-                                        <th scope="col" style="font-weight: bold;">GRAND TOTAL:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="cgst">
-                                            <input type="number" class="form-control">
-                                        </td>
-                                        <td data-label="sgst">
-                                            <input type="number" class="form-control">
-                                        </td>
-                                        <td data-label="igst">
-                                            <input type="number" class="form-control">
-                                        </td>
-                                        <td data-label="rdOff">
-                                            <input type="number" class="form-control">
-                                        </td>
-                                        <td data-label="total">
-                                            <input type="number" class="form-control" disabled>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <hr style="border-top: 1px dashed;">
-
-                        <h4>BANK DETAILS:</h4>
-                        <div class="card">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Bank Name:</th>
-                                        <th scope="col">Account Number:</th>
-                                        <th scope="col">Account Type:</th>
-                                        <th scope="col">Branch:</th>
-                                        <th scope="col">IFS Code:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="bankName">
-                                            <input type="text" class="form-control">
-                                        </td>
-                                        <td data-label="accNumber">
-                                            <input type="text" class="form-control">
-                                        </td>
-                                        <td data-label="accType">
-                                            <input type="text" class="form-control">
-                                        </td>
-                                        <td data-label="branch">
-                                            <input type="text" class="form-control">
-                                        </td>
-                                        <td data-label="ifsCode">
-                                            <input type="text" class="form-control">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <hr style="border-top: 1px dashed;">
-
-                        <!-- Denomination Details -->
-                        <div class="card">
-                            <table class="table table-bordered">
-                              
-                                <tbody>
-                                    <tr>
-                                        <td data-label="rupess">Rupess
-                                            <textarea name="" id="" cols="10" rows="3" class="form-control"></textarea>
-                                        </td>
-                                        <td>
-                                            Certified that this invoice shows the actual price of goods described and all particulars are true and correct.
-                                            <input type="file" class="form-control">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
+                    <div class="sButton">
+                        <button type="submit" class="btn btn-primary">Submit Invoice</button>
                     </div>
                 </form>
             </div>
